@@ -1,0 +1,3 @@
+-T ./../temp
+
+-db sports2020 -S 10000 -H localhost

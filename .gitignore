@@ -1,8 +1,10 @@
 bin/
 common/
+hcapps/
 logs/
 openedge/
 temp/
 webapps/manager
 webapps/oemanager
 work/
+webapps/ROOT/WEB-INF/adapters/rest/_oepingService/stagingDir/
