@@ -7,4 +7,6 @@ temp/
 webapps/manager
 webapps/oemanager
 work/
+
 webapps/ROOT/WEB-INF/adapters/rest/_oepingService/stagingDir/
+webapps/authed/WEB-INF/adapters/rest/_oepingService/stagingDir/
