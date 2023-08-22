@@ -13,4 +13,9 @@ bin\oeprop.bat pas-pug2023.ROOT.WEB.adapterEnabled=1
 bin\oeprop.bat +pas-pug2023.ROOT.WEB.handler1=PugWebHandler:/pug
 bin\oeprop.bat AppServer.SessMgr.agentStartupParam="-pf ./../config/as.pf"
 
+
+bin\tcman.bat deploy -a authed c:\dlc\127\servers\pasoe\extras\oeabl.war
+bin\oeprop.bat pas-pug2023.authed.WEB.adapterEnabled=1
+bin\oeprop.bat +pas-pug2023.authed.WEB.handler1=PugWebHandler:/pug
+
 ```
