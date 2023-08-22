@@ -1,0 +1,277 @@
+#####################################################
+ Oesectool OAuth2 Default Server Properties
+#####################################################
+# Self certificate Common Name (CN) 
+servername:
+ [localhost]
+#OAuth2 server URL parts
+general.server.name:	OAuth2 server server name 	
+ [localhost]
+general.query.type:	Protocol to use 	
+ [http]
+general.query.port:	Port to use	
+ [8888]
+general.base.url:	OAuth2 base URL 	
+ [${general.query.type}://${general.server.name}:${general.query.port}]
+
+#Endpoints		
+general.endpoint.issuer: Endpoint to get oidcserver configuration (URL to call:${general.base.url}/.well-known/openid-configuration)
+ [configuration]
+general.endpoint.access_token: Access token endpoint (URL to call: ${general.base.url}/${general.endpoint.access_token}/<oauth2 server user id>) 
+ [jwt]
+general.endpoint.access_id_token: Access and id token endpoint {URL to call: general.base.url}/${general.endpoint.access_id_token}/<oauth2 server user id>)
+ [token]
+		
+general.endpoint.userinfo: User info endpoint (URL to call: ${general.base.url}/${general.endpoint.userinfo} + Authorization header (see docs)) 
+ [userinfo]
+general.endpoint.introspect:	Introspect endpoint (URL for POST request) ${general.base.url}/${general.endpoint.introspect} + Authorization header (see docs) + access or id token in the body (see docs)
+ [introspect]
+general.endpoint.keys:	public keys endpoint (URL to call: ${general.base.url}/${general.endpoint.keys})
+ [keys]
+
+# General  properties		
+general.idp:	identifies provider id (any string)
+ [00o2k1xbuvCzbxq815d7]
+general.amr: authentication methods JSON array (pwd - password authentication)
+ ["pwd"]
+	
+general.keys: Comma separated key aliases, defines public keys to return when keys requested (URL to call: ${general.base.url}/${general.endpoint.keys})
+ [defsigkey]
+general.cid:	Client id (any string)
+ [oeablClient]
+general.client_secret:	Client secret (any string)	
+ [oesectoolsecret]
+general.iss:	Defines issuer. PASOE uses it to verify IDP base url	
+ [${general.base.url}]
+general.aud	defines: Audience. Should match PASOE 'oauth2.resSvc.audience' property	
+ [oeablapp]
+general.access_token_jti:   access token id (any string). In future OAuth2 server version it will be generated automatically for every generated access token.	
+ [AT.7YHGAaohrCAagun6NSIZIOS6SEVYTrUFc5g6FHHvT4g]
+general.id_token_jti: User Id token (any string).  In the future OAuth2 server version it will be generated automatically for every id token generated	
+ [ID.T4qn53PbvCCUJy7xqOcWmPIEjf-HyWZ9QQP1DbWj_bo]
+
+sectool.user.ids:	Defines OAuth2 server users, whos properties defined in this file	
+ [user1,user2]
+sectool.user.id:	Populated automatically with  user id extracted from a token request URI. Should be one of values defined by sectool.user.ids 
+ []
+
+#user1 properties 		
+user1.sub:	Defines 'sub' claim  for user1. Usually a user name PASOE use to find a user data id	
+ [yshre@progress.com]
+user1.preferred_username:	Defines 'preferrend_username' claim for user1	
+ [yshre@progress.com]
+user1.given_name: Defines 'given_name' claim for user1	
+ [York]
+user1.family_name:	Defines 'family_name' claim for user1	
+ [Shrek]
+user1.name:	Defines 'name' claim for user1	
+ [York Shrek]
+user1.email: Defines 'email' claim for user1	
+ [yshre@progress.com]
+user1.locale: Defines 'locale' calim for user1	
+ [US]
+user1.id: Defines IDP 'id' claim for user1 (any string)	
+ [00u2k1xc0fHUEeghc5d7]
+user1.zoneinfo: Defines 'zoneinfo' claim for user1	
+ [America/Los_Angeles]
+duser1.scope: Defines 'scope' claim  for user1. PASOE uses it to determine user authorities
+ [PSCUser]		
+		
+#user2 properties 		
+user2.sub: Defines 'sub' claim  for user2. Usually a user name  PASOE uses to find a user data id	
+ [kludil@progress.com]
+user2.preferred_username: Defines 'preferrend_username' claim for user2	
+ [kludil@progress.com]
+user2.given_name: Defines 'given_name' claim for user2	
+ [Kunel]
+user2.family_name: Defines 'family_name' claim for user2	
+ [Ludilschik]
+user2.name: Defines 'name' claim for user2	
+ [Kunel Ludilschik]
+user2.email: Defines 'email' claim for user2	
+ [kludil@progress.com]
+user2.locale: Defines 'locale' calim for user2	
+ [US]
+user2.id: Defines IDP 'id' claim for user2 (any string)	
+ [00u2k1xc0fHUEeghclmc]
+user2.zoneinfo: Defines 'zoneinfo' claim for user2	
+ [America/Los_Angeles]
+user2.scope: Defines 'scope' claim  for user2. PASOE uses it to determine user authorities		
+ [PSCAdmin]
+		
+#access token claim properties		
+access.token.ver: Defines 'ver' (version) claim	
+ [1]
+access.token.jti: Defines 'jti' (token id) claim	
+ [${general.access_token_jti}]
+access.token.iss: Defines 'iss' (issuer) claim	
+ [${general.iss}]
+access.token.aud: Defines 'aud' (audience) claim	
+ [${general.aud}]
+access.token.sub: Defines 'sub' (subject) claim for the user	
+ [${${sectool.user.id}.sub}]
+access.token.iat: Defines 'iat' (token issue time) claim 	
+ [now]
+access.token.exp: Defines 'exp' (token expiration time) claim	
+ [now+1h]
+access.token.cid: Deifnes 'cid' (client id) claim	
+ [${general.cid}]
+access.token.uid: Defines 'uid' (user id) claim	
+ [${${sectool.user.id}.id}]
+access.token.scope: Defines 'scope' claim for the user	
+ [${${sectool.user.id}.scope}]
+access.token.scp: Defines 'scp' (scopes) claim (JSON array 	)
+ ["openid","email","profile"]
+access.token.token_use: Defines 'token_use' claim	
+ [access]
+#Id Token		
+id.token.ver: Defines 'ver' (version) claim	
+ [1]
+id.token.jti: Defines 'jti' (token id) claim	
+ [${general.id_token_jti}]
+id.token.iss: Defines 'iss' (issuer) claim	
+ [${general.iss}]
+id.token.aud: Defines 'aud' (audience) claim	
+ [${general.aud}]
+id.token.sub: Defines 'sub' (subject) claim for the user	
+ [${${sectool.user.id}.sub}]
+id.token.name: Defines 'name' claim for the user	
+ [${${sectool.user.id}.name}]
+id.token.email: Defines 'email' claim for the user	
+ [${${sectool.user.id}.email}]
+id.token.iat: Defines 'iat' (token issue time) claim 	
+ [now]
+id.token.exp: Defines 'exp' (token expiration time) claim	
+ [now+1h]
+id.token.amr: Defines 'amr' (authentication method) claim	
+ [${general.amr}]
+id.token.idp: Defines 'idp' (identity provider id) claim	
+ [${general.idp}]
+d.token.preferred_username: Defines 'preferred_username' claim	
+ [${${sectool.user.id}.preferred_username}]
+id.token.auth_time: Defines 'auth_time' (authentication time) claim	
+ [now]
+id.token.at_hash: Defines 'at_hash' (access token hash) claim	
+ [0]
+
+#Userinfo		
+userinfo.sub: Defines 'sub' element 	
+ [${${sectool.user.id}.sub}]
+userinfo.name: Defines 'name' element	
+ [${${sectool.user.id}.name}]
+userinfo.email: Defines 'email' element	
+ [${${sectool.user.id}.email}]
+userinfo.locale: Defines 'locale' element	
+ [${${sectool.user.id}.locale}]
+userinfo.preferred_username: Defines 'preffered_username' element	
+ [${${sectool.user.id}.preferred_username}]
+userinfo.given_name: Defines 'given_name' element	
+ [${${sectool.user.id}.given_name}]
+userinfo.family_name: Defines 'family_name' element	
+ [${${sectool.user.id}.family_name}]
+userinfo.zoneinfo: Defines 'zoneinfo' element	
+ [${${sectool.user.id}.zoneinfo}]
+userinfo.updated_at: Defines 'upadated_at' element	
+ [now-2d]
+userinfo.email_verified: Defines 'email_verified' element	
+ [TRUE]
+
+#Introspect Access 		
+introspect.access.active: Defines 'active' element	
+ [TRUE]
+introspect.access.token_type: Defines 'token_type' (access token usage) element	
+ [Bearer]
+introspect.access.scope: Defines 'scope' element. Value equals 'scp' claim of the related access token	
+ [${access.token.scp}]
+introspect.access.client_id: Defines 'client_id' element. Value equals 'cid' claim of the related access token	
+ [${access.token.cid}]
+introspect.access.username: Defines 'username' element. Value equals 'sub' claim of the related access token	
+ [${access.token.sub}]
+introspect.access.exp: Defines 'exp' element. Value equals 'exp' claim of the related access token	
+ [${access.token.exp}]
+introspect.access.iat: Defines 'iat' element. Value equals 'iat' claim of the related access token	
+ [${access.token.iat}]
+introspect.access.sub: Defines 'sub' element. Value equals 'sub' claim of the related access token	
+ [${access.token.sub}]
+introspect.access.aud: Defines 'aud' element. Value equals 'aud' claim of the related access token	
+ [${access.token.aud}]
+introspect.access.iss: Defines 'iss' element. Value equals 'iss' claim of the related access token	
+ [${access.token.iss}]
+introspect.access.jti: Defines 'jti' element. Value equals 'jti' claim of the related access token	
+ [${access.token.jti}]
+introspect.access.uid: Defines 'uid' element. Value equals 'uid' claim of the related access token	
+ [${access.token.uid}]
+
+#Introspect Id		
+introspect.id.active: Defines 'active' element	
+ [TRUE]
+introspect.id.token_type: Defines 'token_type' (id token usage) element	
+ [Bearer]
+introspect.id.username: Defines 'username' element. Value equals 'sub' claim of the related id token	
+ [${id.token.sub}]
+introspect.id.exp: Defines 'exp' element. Value equals 'exp' claim of the related id token	
+ [${id.token.exp}]
+introspect.id.iat: Defines 'iat' element. Value equals 'iat' claim of the related id token	
+ [${id.token.iat}]
+introspect.id.sub: Defines 'sub' element. Value equals 'sub' claim of the related id token	
+ [${id.token.sub}]
+introspect.id.aud: Defines 'aud' element. Value equals 'aud' claim of the related id token	
+ [${id.token.aud}]
+introspect.id.iss: Defines 'iss' element. Value equals 'iss' claim of the related id token	
+ [${id.token.iss}]
+introspect.id.jti: Defines 'jti' element. Value equals 'jti' claim of the related id token	
+ [${id.token.jti}]
+introspect.id.exp: Defines 'exp' element. Value equals 'exp' claim of the related id token	
+ [${id.token.exp}]
+introspect.id.at_hash: Defines 'at_hash' element. Value equals 'at_hash' claim of the related id token	
+ [${id.token.at_hash}]
+introspect.id.idp: Defines 'idp' element. Value equals 'idp' claim of the related id token	
+ [${id.token.idp}]
+introspect.id.auth_time: Defines 'auth_time' element. Value equals 'auth_time' claim of the related id token	
+ [${id.token.auth_time}]
+introspect.id.amr: Defines 'amr' element. Value equals 'amr' claim of the related id token	
+ [${id.token.amr}]
+introspect.id.name: Defines 'name' element. Value equals 'name' claim of the related id token	
+ [${id.token.name}]
+introspect.id.preferred_username: Defines 'preferred_username' element. Value equals 'preferred_username' claim of the related id token	
+ [${id.token.preferred_username}]
+introspect.id.email: Defines 'email' element. Value equals 'email' claim of the related id token	
+ [${id.token.email}]
+
+#Signature key info		
+#token.key.secret: If provided: common 'PASOE-oidcserver' secret used to sign tokens	
+ [changeme]
+token.key.sigalias: If provided: key alias from the abl application keystore used to sign tokens	
+ [defsigkey]
+token.key.sigalg: Signature algorithm if key from keystore used	
+ [RS256]
+
+#Encryption key info		
+#token.key.enckeyurl: If provided: a URL to obtain a public key to encrypt tokens (JWE token)	
+ []
+#token.key.encalias: If provided: key alias from the abl application keystore to encrypt tokens (JWE token)	
+ [defaultkey]
+#token.key.encalg: Encryption algorithm (JWE token)	
+ [RSA-OAEP-256]
+#token.key.encmethod: Encryption method (JWE token)	
+ [A256CBC-HS512]
+
+#Configuration Properties (metadata)		
+config.issuer: The issuer URL	
+ [${general.base.url}]
+config.authorization_endpoint: Authorization endpoint (not implemented)
+ []
+config.token_endpoint: Access token endpoint 	
+ [${general.base.url}/${general.endpoint.access_token}]
+config.userinfo_endpoint: Userinfo endpoint	
+ [${general.base.url}/${general.endpoint.userinfo}]
+config.registration_endpoint: Registration endpoint (not implemented)
+ []
+config.introspection_endpoint: Token introspection endpoint	
+ [${general.base.url}/${general.endpoint.introspect}]
+config.revocation_endpoint: Revocation endpoint (not implemented)
+ []
+config.jwks_uri: Public keys endpoint
+ [${general.base.url}/${general.endpoint.keys}]
+config.id_token_signing_alg_values_supported: JSON array of supported signature algorithms
+ ["RS256"]

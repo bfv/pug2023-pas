@@ -1,0 +1,119 @@
+########################################################
+oesectool SAML Server properties
+########################################################
+
+spBaseUrl: PASOE instance url
+ [http://localhost:8810]
+
+time.props: Properties calculated based on current date; 
+ [validUntil,sessionValidUntil]
+Time calculating formula:
+ now [{+|-} <integer number> {y|M|d|h|m|s}]
+
+Examples:
+ now - current date
+ now + 10m - 10 minutes after now 
+ now - 2h - 2 hours before now
+ '+' or '-' - after or before the current date 
+[validUntil,sessionValidUntil]
+
+sectool.user.id: prefix defining set of a concrete user properties. Despite that properties for multiple users are defined each SAML server session would use only one user
+ [idp2]
+sectool.user.ids: list of user data sets defined in this file
+ [idp1,idp2]
+
+idp1.name: first user name 
+ [yshre@progress.com]
+idp1.authorities: first user authorities
+ [PSCAdmin,PSCUser]
+idp1.email: first user email
+ [yshre@progress.com]
+idp1.password: first user password (doesn't matter) 
+ [nomatter]
+
+idp2.name: second user name 
+ [kludil@progress.com]
+idp2.authorities: second user authorities
+ [PSCUser]
+idp2.email: second user email
+ [kludil@progress.com]
+idp2.password: second user password (doesn't matter) 
+ [nomatter]
+
+success: login token status. Could be 'true' or 'false'
+ [true]
+validUntil: token expiration date (In this example: 10 hours after token generation time) 
+ [now+10h]
+sessionValidUntil: http session expiration date. Optional parameter. If not provided equals 'validUntil'
+ [now+11h]
+audience: audience (should match audience in PASOE oeablSecurity.properties)
+ [/saml2/metadata/oepas]
+
+spUrl: URL to call if user logs in to SAML server directly (Deprecated)
+ [${spBaseUrl}/saml2/login/oepas1]
+
+ssoUrl: single sign on URL. URL to call if user logs in to SAML server directly
+ [${spUrl}]
+
+otherSsoUrls: Comma separated list of other leagal SSO URLs. Used to validate SSO request sender 
+ []
+
+recipientUrl: receipient assertion in the SAML token. Modified for actual sender if it is empth or equals ssoUrl
+ [${spUrl}]
+
+destinationUrl: destination assertion in the SAML token. Modified for actual sender if it is empth or equals ssoUrl
+ [${spUrl}]
+
+goto: redirect URL PASOE would redirect to if user logs in to SAML server directly
+ [${spBaseUrl}/rest/_oepingService/_oeping]
+
+userName: user name used in token 
+ [${${sectool.user.id}.name}]
+
+userPassword: user password (not used but should be provided)
+ [${${sectool.user.id}.password]
+  
+attributes: attributes added to SAML token
+ [userAuthorities,userEmail]
+
+userAuthorities: attribute used in token (should be listed in 'attributes')
+ [${${sectool.user.id}.authorities}]
+userEmail: attribute used in token (should be listed in 'attributes')
+ [${${sectool.user.id}.email}]
+
+sigKeyAlias: alias of the key to sign the token (should be located in '<catalina_base>/ablapps/<ablapp name>/conf/<ablapp name>.p12' keystore)
+ [defsigkey]
+
+sigAlg: algorithm used by the signature key
+ [http://www.w3.org/2001/04/xmldsig-more#rsa-sha512]
+
+digestMethod: digest method used by the signature key 
+ [http://www.w3.org/2001/04/xmlenc#sha512]
+
+
+binding.sso.location: single sign on address returned when metadata requested
+ [samlidp/sso
+binding.slo.location: single sing out address  returned when metadata requested
+ [samlidp/slo]
+
+logout.Url: PASOE logout URL
+  [${spBaseUrl}/saml2/logout/result]
+logout.spIssuer: PASOE metadata URL
+  [${spBaseUrl}/saml2/metadata/oepas1]
+
+logout.sigKeyAlias: key alias to validate logout request signature
+  [defsigkey]
+
+endpoint.metadata: metadata request path 
+  [/samlidp/metadata]
+  
+endpoint.token: SAML token request path 
+  [/samlidp/token]
+endpoint.slo: Single log out request path
+  [/samlidp/slo]  
+endpoint.sso: Single log in request path
+  [/samlidp/sso]
+endpoint.samlheader: SAML header to use with Bearer token request path 
+  [/samlidp/samlheader]
+endpoint.idpfirst: Request path to login directly to SAML server
+  [/samlidp/idpfirst]

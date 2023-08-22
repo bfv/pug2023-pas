@@ -1,0 +1,8 @@
+bin/
+common/
+logs/
+openedge/
+temp/
+webapps/manager
+webapps/oemanager
+work/
