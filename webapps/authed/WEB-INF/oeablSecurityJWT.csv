@@ -3,7 +3,7 @@
 "/rest/**","*","hasAnyAuthority('scope.PSCUser')"
 
 ############## Intercept-url definitions for the WEB transport  URIs ###############
-"/web/**","*","hasAnyAuthority('scope.PSCUser')"
+"/web/**","*","hasAnyAuthority('PUG2023ApiUser')"
 
 ############## Intercept-url definitions for the default URI space #################
 "/static/home.html","GET","hasAuthority('scope.PSCUser')"
